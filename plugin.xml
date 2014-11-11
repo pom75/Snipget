@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension
+               point="org.eclipse.ui.views">
+         <view
+               id="tpdev.vue"
+               name="Snipget"
+               class="tpdev.vue.SnipgetView"
+         />
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="Snipget"
+            visible="true"
+            id="TPDEV.actionSet">
+         <menu
+               label="Snipget"
+               id="sampleMenu">
+               <separator
+                  name="logInOut">
+            </separator>
+             <separator
+                  name="getSnippet">
+            </separator>
+            <separator
+                  name="postSnippet">
+            </separator>
+         </menu>
+         <action
+               label="&amp;Sign up / Sign in"
+               icon="icons/sample.gif"
+               class="tpdev.actions.LoginAction"
+               tooltip="Sign in"
+               menubarPath="sampleMenu/logInOut"
+               toolbarPath="logInOut"
+               id="tpdev.actions.LoginAction">
+         </action>
+         <action
+               label="&amp;Get a Snippet"
+               icon="icons/sample.gif"
+               class="tpdev.actions.GetAction"
+               tooltip="Get a Snippet"
+               menubarPath="sampleMenu/getSnippet"
+               toolbarPath="getSnippet"
+               id="tpdev.actions.GetAction">
+         </action>
+         <action
+               label="&amp;Post a Snippet"
+               icon="icons/sample.gif"
+               class="tpdev.actions.PostAction"
+               tooltip="Post a Snippet"
+               menubarPath="sampleMenu/postSnippet"
+               toolbarPath="postSnippet"
+               id="tpdev.actions.PostAction">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+      point="org.eclipse.ui.preferencePages">
+         <page
+               id="ctpdev.page.page1"
+               name="Snipget"
+               class="tpdev.page.SnipgetPreferencePage"
+         />
+   </extension>
+
+</plugin>
