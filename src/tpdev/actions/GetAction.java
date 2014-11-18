@@ -2,6 +2,8 @@ package tpdev.actions;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,13 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import horloge.text.HorlogeTexte;
-
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
@@ -29,10 +26,64 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
  */
 public class GetAction implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
+
+	private JFrame fenetre;
+	private JLabel info;
+	private JPanel gui;
+	private JPanel labelFields;
+	private JPanel labels;
+	private JPanel fields;
+
+	private JLabel tagsLabel;
+	private JTextField tagsFields;
+	private JButton rechercherButton;
+
 	/**
 	 * The constructor.
 	 */
 	public GetAction() {
+		fenetre = new JFrame();
+		fenetre.setTitle("Get a Snippet");
+		info = new JLabel();
+		gui = new JPanel(new BorderLayout(3,2));
+		labelFields = new JPanel(new BorderLayout(2,2));
+		labels = new JPanel(new GridLayout(0,1,1,1));
+		fields = new JPanel(new GridLayout(0,1,1,1));
+
+		tagsLabel = new JLabel("Tags :");
+		tagsFields = new JTextField(20);
+		labels.add(tagsLabel);
+		fields.add(tagsFields);
+
+		rechercherButton = new JButton("Rechercher");
+		labels.add(rechercherButton);
+		addButtonActionListener(rechercherButton);
+		
+		// label bouche-trou
+		fields.add(new JLabel(""));
+
+		labelFields.add(labels, BorderLayout.CENTER);
+		labelFields.add(fields, BorderLayout.EAST);
+
+		gui.add(labelFields, BorderLayout.NORTH);
+
+		info.setText("<html>Pour chercher un Snippet , tapez dans le champ 'Tags' <br> "
+				+ " Tapez vos tags séparés par une virgule. Exemple : tag1,tag2  </html>");
+
+		gui.add(info, BorderLayout.SOUTH);
+
+		fenetre.add(gui);
+		fenetre.pack();
+	}
+	
+	private void addButtonActionListener (JButton rechercherButton) {
+		
+		rechercherButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO
+			}
+		});
 	}
 
 	/**
@@ -42,36 +93,8 @@ public class GetAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		JFrame fenetre = new JFrame();
-		fenetre.setTitle("Get a Snippet");
-		JLabel info = new JLabel();
-		
-		JPanel gui = new JPanel(new BorderLayout(3,2));
-
-        JPanel labelFields = new JPanel(new BorderLayout(2,2));
-
-        JPanel labels = new JPanel(new GridLayout(0,1,1,1));
-        JPanel fields = new JPanel(new GridLayout(0,1,1,1));
-        
-        labels.add(new JLabel("Tags :"));
-        fields.add(new JTextField(20));
-        labels.add( new JButton("Rechercher") );
-        fields.add(new JLabel());
-
-        labelFields.add(labels, BorderLayout.CENTER);
-        labelFields.add(fields, BorderLayout.EAST);
-
-        gui.add(labelFields, BorderLayout.NORTH);
-
-        info.setText("<html>Pour chercher un Snippet , tapez dans la champ 'Tag' <br> "
-        		+ " tapez vos tags séparé par une virgule exemple : tag1 , tag2  </html>");
-	    
-        gui.add(info, BorderLayout.SOUTH);
-        
-        fenetre.add(gui);
-	    fenetre.pack();
 		fenetre.setVisible(true);
-		}
+	}
 
 	/**
 	 * Selection in the workbench has been changed. We 

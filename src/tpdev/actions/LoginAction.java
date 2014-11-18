@@ -2,13 +2,14 @@ package tpdev.actions;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -25,10 +26,76 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
  */
 public class LoginAction implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
+	
+	private JFrame fenetre;
+	private JLabel info;
+	private JPanel gui;
+    private JPanel labelFields;
+    private JPanel labels; 
+    private JPanel fields;
+    private JLabel loginLabel, passwordLabel;
+    private JTextField loginField, passwordField;
+    private JButton connexionButton, inscriptionButton;
+    
 	/**
 	 * The constructor.
 	 */
 	public LoginAction() {
+		fenetre = new JFrame("Login");
+		info = new JLabel();
+		gui = new JPanel(new BorderLayout(3,2));
+        labelFields = new JPanel(new BorderLayout(2,2));
+        labels = new JPanel(new GridLayout(0,1,1,1));
+        fields = new JPanel(new GridLayout(0,1,1,1));
+        
+        loginLabel = new JLabel("Login :");
+        passwordLabel = new JLabel("Password :");
+        labels.add(loginLabel);
+        labels.add(passwordLabel);
+        
+        loginField = new JTextField(20);
+        passwordField = new JTextField(10);
+        fields.add(loginField);
+        fields.add(passwordField);
+        
+        connexionButton = new JButton("Connexion");
+        inscriptionButton = new JButton("Inscription");
+        labels.add(connexionButton);
+        fields.add(inscriptionButton);
+        // ajout des méthodes appelées par les boutons
+        addButtonActionListener(connexionButton, inscriptionButton);
+
+        labelFields.add(labels, BorderLayout.CENTER);
+        labelFields.add(fields, BorderLayout.EAST);
+
+        gui.add(labelFields, BorderLayout.NORTH);
+
+        info.setText("<html> Complétez les champs ci-dessus. <br> "
+        		+ "Si Vous avez déja un compte cliquez simplement sur Connexion <br> "
+        		+ "Sinon cliquez sur Inscription </html>");
+	    
+        gui.add(info, BorderLayout.SOUTH);
+        
+        fenetre.add(gui);
+	    fenetre.pack();
+	}
+	
+	private void addButtonActionListener (JButton connexion, JButton inscription) {
+		
+		connexion.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				//TODO
+			}
+		});
+		
+		inscription.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				//TODO
+			}
+		});
+		
 	}
 
 	/**
@@ -38,39 +105,8 @@ public class LoginAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		JFrame fenetre = new JFrame();
-		fenetre.setTitle("Login");
-		JLabel info = new JLabel();
-		
-		JPanel gui = new JPanel(new BorderLayout(3,2));
-
-        JPanel labelFields = new JPanel(new BorderLayout(2,2));
-
-        JPanel labels = new JPanel(new GridLayout(0,1,1,1));
-        JPanel fields = new JPanel(new GridLayout(0,1,1,1));
-        
-        labels.add(new JLabel("Login :"));
-        fields.add(new JTextField(20));
-        labels.add(new JLabel("Password :"));
-        fields.add(new JTextField(10));
-        labels.add( new JButton("Connexion") );
-        fields.add( new JButton("Inscription") );
-
-        labelFields.add(labels, BorderLayout.CENTER);
-        labelFields.add(fields, BorderLayout.EAST);
-
-        gui.add(labelFields, BorderLayout.NORTH);
-
-        info.setText("<html> Completez les champs suivant. <br> "
-        		+ "Si Vous avez déja un compe clickez simplement sur Connexion <br> "
-        		+ "Sinon clickez sur Inscription </html>");
-	    
-        gui.add(info, BorderLayout.SOUTH);
-        
-        fenetre.add(gui);
-	    fenetre.pack();
 		fenetre.setVisible(true);
-		}
+	}
 
 	/**
 	 * Selection in the workbench has been changed. We 

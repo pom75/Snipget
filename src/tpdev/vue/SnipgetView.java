@@ -1,6 +1,6 @@
 package tpdev.vue;
 
-import horloge.text.HorlogeTexte;
+import horloge.HorlogeTexte;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;

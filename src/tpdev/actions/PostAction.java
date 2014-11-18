@@ -2,22 +2,21 @@ package tpdev.actions;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import horloge.text.HorlogeTexte;
-
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
@@ -31,10 +30,77 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
  */
 public class PostAction implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
+
+	private JFrame fenetre;
+	private JPanel gui;
+	private JPanel labelFields;
+	private JPanel labels;
+	private JPanel fields;
+	private JPanel radioPanel;
+
+	private JLabel titreLabel, tagsLabel, codeLabel;
+	private JTextField titreField, tagsField;
+	private JScrollPane codeScroll;
+	private JButton sendButton;
+	private JRadioButton javaRadio, cRadio;
+	private ButtonGroup groupeRadio;
+
 	/**
 	 * The constructor.
 	 */
 	public PostAction() {
+		fenetre = new JFrame();
+		fenetre.setTitle("Post a Snippet");
+		gui = new JPanel(new BorderLayout(3,2));
+		labelFields = new JPanel(new BorderLayout(2,2));
+		labels = new JPanel(new GridLayout(0,1,1,1));
+		fields = new JPanel(new GridLayout(0,1,1,1));
+		radioPanel = new JPanel(new GridLayout(1, 0, 1, 1));
+
+		titreLabel = new JLabel("Titre :");
+		titreField = new JTextField(10); 
+		labels.add(titreLabel);
+		fields.add(titreField);
+
+		tagsLabel = new JLabel("Tags :");
+		tagsField = new JTextField(10); 
+		labels.add(tagsLabel);
+		fields.add(tagsField);
+
+		codeLabel = new JLabel("Code :");
+		codeScroll = new JScrollPane(new JTextArea(5,30)); 
+		labels.add(codeLabel);
+		fields.add(codeScroll);
+
+		sendButton = new JButton("Send "); 
+		labels.add(sendButton);
+		addButtonActionListener(sendButton);
+
+		javaRadio = new JRadioButton("Java");
+		cRadio = new JRadioButton("C");
+		groupeRadio = new ButtonGroup();
+		groupeRadio.add(javaRadio);
+		groupeRadio.add(cRadio);
+		radioPanel.add(javaRadio);
+		radioPanel.add(cRadio);
+		fields.add(radioPanel);
+
+		labelFields.add(labels, BorderLayout.CENTER);
+		labelFields.add(fields, BorderLayout.EAST);
+
+		gui.add(labelFields, BorderLayout.NORTH);
+		fenetre.add(gui);
+		fenetre.pack();
+	}
+	
+	private void addButtonActionListener (JButton sendButton) {
+		
+		sendButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO 
+			}
+		});
 	}
 
 	/**
@@ -44,33 +110,8 @@ public class PostAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		JFrame fenetre = new JFrame();
-		fenetre.setTitle("Post a Snippet");
-		
-		JPanel gui = new JPanel(new BorderLayout(3,2));
-
-        JPanel labelFields = new JPanel(new BorderLayout(2,2));
-
-        JPanel labels = new JPanel(new GridLayout(0,1,1,1));
-        JPanel fields = new JPanel(new GridLayout(0,1,1,1));
-        
-        labels.add(new JLabel("Titre :"));
-        fields.add(new JTextField(10));
-        labels.add(new JLabel("Tags :"));
-        fields.add(new JTextField(10));
-        labels.add(new JLabel("Code :"));
-        fields.add(new JScrollPane(new JTextArea(5,30)));
-        labels.add( new JButton("Send ") );
-        fields.add(new JLabel());
-
-        labelFields.add(labels, BorderLayout.CENTER);
-        labelFields.add(fields, BorderLayout.EAST);
-
-        gui.add(labelFields, BorderLayout.NORTH);
-        fenetre.add(gui);
-	    fenetre.pack();
 		fenetre.setVisible(true);
-		}
+	}
 
 	/**
 	 * Selection in the workbench has been changed. We 
