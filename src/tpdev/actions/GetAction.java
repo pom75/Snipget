@@ -2,8 +2,6 @@ package tpdev.actions;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +14,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
+import tpdev.listeners.RechercherListener;
+
 /**
  * Our sample action implements workbench action delegate.
  * The action proxy will be created by the workbench and
@@ -27,37 +27,34 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 public class GetAction implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
 
-	private JFrame fenetre;
-	private JLabel info;
 	private JPanel gui;
 	private JPanel labelFields;
 	private JPanel labels;
 	private JPanel fields;
-
-	private JLabel tagsLabel;
-	private JTextField tagsFields;
-	private JButton rechercherButton;
-
+	private Conteneur conteneur;
+	
 	/**
 	 * The constructor.
 	 */
 	public GetAction() {
-		fenetre = new JFrame();
-		fenetre.setTitle("Get a Snippet");
-		info = new JLabel();
+		conteneur = new Conteneur();
+		
+		conteneur.getFrame = new JFrame();
+		conteneur.getFrame.setTitle("Get a Snippet");
+		conteneur.infoGetLabel = new JLabel();
 		gui = new JPanel(new BorderLayout(3,2));
 		labelFields = new JPanel(new BorderLayout(2,2));
 		labels = new JPanel(new GridLayout(0,1,1,1));
 		fields = new JPanel(new GridLayout(0,1,1,1));
 
-		tagsLabel = new JLabel("Tags :");
-		tagsFields = new JTextField(20);
-		labels.add(tagsLabel);
-		fields.add(tagsFields);
+		conteneur.tagsLabelGet = new JLabel("Tags :");
+		conteneur.tagsFields = new JTextField(20);
+		labels.add(conteneur.tagsLabelGet);
+		fields.add(conteneur.tagsFields);
 
-		rechercherButton = new JButton("Rechercher");
-		labels.add(rechercherButton);
-		addButtonActionListener(rechercherButton);
+		conteneur.rechercherButton = new JButton("Rechercher");
+		labels.add(conteneur.rechercherButton);
+		conteneur.rechercherButton.addActionListener(new RechercherListener(conteneur));
 		
 		// label bouche-trou
 		fields.add(new JLabel(""));
@@ -67,23 +64,13 @@ public class GetAction implements IWorkbenchWindowActionDelegate {
 
 		gui.add(labelFields, BorderLayout.NORTH);
 
-		info.setText("<html>Pour chercher un Snippet , tapez dans le champ 'Tags' <br> "
+		conteneur.infoGetLabel.setText("<html>Pour chercher un Snippet , tapez dans le champ 'Tags' <br> "
 				+ " Tapez vos tags séparés par une virgule. Exemple : tag1,tag2  </html>");
 
-		gui.add(info, BorderLayout.SOUTH);
+		gui.add(conteneur.infoGetLabel, BorderLayout.SOUTH);
 
-		fenetre.add(gui);
-		fenetre.pack();
-	}
-	
-	private void addButtonActionListener (JButton rechercherButton) {
-		
-		rechercherButton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				// TODO
-			}
-		});
+		conteneur.getFrame.add(gui);
+		conteneur.getFrame.pack();
 	}
 
 	/**
@@ -93,7 +80,7 @@ public class GetAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		fenetre.setVisible(true);
+		conteneur.getFrame.setVisible(true);
 	}
 
 	/**

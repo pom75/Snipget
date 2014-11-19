@@ -2,8 +2,6 @@ package tpdev.actions;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -20,6 +18,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
+import tpdev.listeners.SendListener;
+
 /**
  * Our sample action implements workbench action delegate.
  * The action proxy will be created by the workbench and
@@ -31,76 +31,62 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 public class PostAction implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
 
-	private JFrame fenetre;
 	private JPanel gui;
 	private JPanel labelFields;
 	private JPanel labels;
 	private JPanel fields;
 	private JPanel radioPanel;
-
-	private JLabel titreLabel, tagsLabel, codeLabel;
-	private JTextField titreField, tagsField;
-	private JScrollPane codeScroll;
-	private JButton sendButton;
-	private JRadioButton javaRadio, cRadio;
-	private ButtonGroup groupeRadio;
-
+	private Conteneur conteneur;
+	
 	/**
 	 * The constructor.
 	 */
 	public PostAction() {
-		fenetre = new JFrame();
-		fenetre.setTitle("Post a Snippet");
+		conteneur = new Conteneur();
+		
+		conteneur.postFrame = new JFrame();
+		conteneur.postFrame.setTitle("Post a Snippet");
 		gui = new JPanel(new BorderLayout(3,2));
 		labelFields = new JPanel(new BorderLayout(2,2));
 		labels = new JPanel(new GridLayout(0,1,1,1));
 		fields = new JPanel(new GridLayout(0,1,1,1));
 		radioPanel = new JPanel(new GridLayout(1, 0, 1, 1));
 
-		titreLabel = new JLabel("Titre :");
-		titreField = new JTextField(10); 
-		labels.add(titreLabel);
-		fields.add(titreField);
+		conteneur.titreLabel = new JLabel("Titre :");
+		conteneur.titreField = new JTextField(10); 
+		labels.add(conteneur.titreLabel);
+		fields.add(conteneur.titreField);
 
-		tagsLabel = new JLabel("Tags :");
-		tagsField = new JTextField(10); 
-		labels.add(tagsLabel);
-		fields.add(tagsField);
+		conteneur.tagsLabelPost = new JLabel("Tags :");
+		conteneur.tagsField = new JTextField(10); 
+		labels.add(conteneur.tagsLabelPost);
+		fields.add(conteneur.tagsField);
 
-		codeLabel = new JLabel("Code :");
-		codeScroll = new JScrollPane(new JTextArea(5,30)); 
-		labels.add(codeLabel);
-		fields.add(codeScroll);
+		conteneur.codeLabel = new JLabel("Code :");
+		conteneur.codeScroll = new JScrollPane(new JTextArea(5,30)); 
+		labels.add(conteneur.codeLabel);
+		fields.add(conteneur.codeScroll);
 
-		sendButton = new JButton("Send "); 
-		labels.add(sendButton);
-		addButtonActionListener(sendButton);
+		conteneur.sendButton = new JButton("Send "); 
+		labels.add(conteneur.sendButton);
+		conteneur.sendButton.addActionListener(new SendListener(conteneur));
+		
 
-		javaRadio = new JRadioButton("Java");
-		cRadio = new JRadioButton("C");
-		groupeRadio = new ButtonGroup();
-		groupeRadio.add(javaRadio);
-		groupeRadio.add(cRadio);
-		radioPanel.add(javaRadio);
-		radioPanel.add(cRadio);
+		conteneur.javaRadio = new JRadioButton("Java");
+		conteneur.cRadio = new JRadioButton("C");
+		conteneur.groupeRadio = new ButtonGroup();
+		conteneur.groupeRadio.add(conteneur.javaRadio);
+		conteneur.groupeRadio.add(conteneur.cRadio);
+		radioPanel.add(conteneur.javaRadio);
+		radioPanel.add(conteneur.cRadio);
 		fields.add(radioPanel);
 
 		labelFields.add(labels, BorderLayout.CENTER);
 		labelFields.add(fields, BorderLayout.EAST);
 
 		gui.add(labelFields, BorderLayout.NORTH);
-		fenetre.add(gui);
-		fenetre.pack();
-	}
-	
-	private void addButtonActionListener (JButton sendButton) {
-		
-		sendButton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				// TODO 
-			}
-		});
+		conteneur.postFrame.add(gui);
+		conteneur.postFrame.pack();
 	}
 
 	/**
@@ -110,7 +96,7 @@ public class PostAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		fenetre.setVisible(true);
+		conteneur.postFrame.setVisible(true);
 	}
 
 	/**

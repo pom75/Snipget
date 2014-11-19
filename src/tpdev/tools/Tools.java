@@ -12,6 +12,9 @@ public class Tools {
 
 	/** Adresse du serveur */
 	public static final String adresse = "http://snipget.mybluemix.net/";
+	
+	/** Id de l'utilisateur connecté */
+	public static int id = -1;
 
 	public static String readAll (BufferedReader rd) throws IOException {
 		StringBuilder sb = new StringBuilder();
@@ -29,10 +32,13 @@ public class Tools {
 	 */
 	public static JSONObject envoyerRequete (String url) {
 		try {
+			
+			System.out.println("[Requête envoyée] : "+adresse+url);
+			
 			URL u = new URL(adresse+url);
 			BufferedReader in = new BufferedReader(new InputStreamReader(u.openStream()));
 			String str = readAll(in);
-			//System.out.println("String : "+str);
+			System.out.println("[Réponse] : "+str);
 			in.close();
 			return new JSONObject(str); 
 		} catch (IOException e) {
