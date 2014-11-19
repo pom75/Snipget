@@ -6,32 +6,46 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class Conteneur {
 
 	// inscription / connexion
-	public JFrame loginFrame;
-	public JLabel loginLabel, passwordLabel;
-	public JTextField loginField, passwordField;
-	public JButton connexionButton, inscriptionButton;
-	public JLabel infoLoginLabel;
+	public static JFrame loginFrame;
+	public static JLabel loginLabel, passwordLabel;
+	public static JTextField loginField, passwordField;
+	public static JButton connexionButton, inscriptionButton;
+	public static JLabel infoLoginLabel;
 	
 	// get snippet
-	public JFrame getFrame;
-	public JLabel tagsLabelGet;
-	public JTextField tagsFields;
-	public JButton rechercherButton;
-	public JLabel infoGetLabel;
+	public static JFrame getFrame;
+	public static JLabel tagsLabelGet;
+	public static JTextField tagsFieldGet;
+	public static JButton rechercherButton;
+	public static JLabel infoGetLabel;
 	
 	// post snippet
-	public JFrame postFrame;
-	public JLabel titreLabel, tagsLabelPost, codeLabel;
-	public JTextField titreField, tagsField;
-	public JScrollPane codeScroll;
-	public JButton sendButton;
-	public JRadioButton javaRadio, cRadio;
-	public ButtonGroup groupeRadio;
-	public JLabel infoPostLabel;
+	public static JFrame postFrame;
+	public static JLabel titreLabel, tagsLabelPost, codeLabel;
+	public static JTextField titreField, tagsFieldPost;
+	public static JTextArea codeArea;
+	public static JScrollPane codeScroll;
+	public static JButton sendButton;
+	public static JRadioButton javaRadio, cRadio;
+	public static ButtonGroup groupeLanguageRadio;
+	public static JLabel infoPostLabel;
+	
+	// response
+	public static JFrame responseFrame;
+	public static JTextArea responseArea;
+	public static JScrollPane responseScroll;
+	public static JLabel noterLabel;
+	public static JLabel idSnippetLabel, noteLabel;
+	public static JTextField idSnippetField;
+	public static JRadioButton pourRadio, contreRadio;
+	public static ButtonGroup groupePourContreRadio;
+	public static JButton noterButton;
+	public static JLabel infoResponseLabel;
 
 }

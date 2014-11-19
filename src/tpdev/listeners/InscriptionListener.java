@@ -12,19 +12,13 @@ import tpdev.tools.Tools;
 
 public class InscriptionListener implements ActionListener {
 	
-	private Conteneur conteneur;
-	
-	public InscriptionListener (Conteneur c) {
-		conteneur = c;
-	}
-	
 	/*
 	 * réponse si utilisateur déjà inscrit : {"status":500,"entity":null,"metadata":{}}
 	 */
 	
 	public void actionPerformed(ActionEvent e) {
-		String login = conteneur.loginField.getText();
-		String password = conteneur.passwordField.getText();
+		String login = Conteneur.loginField.getText();
+		String password = Conteneur.passwordField.getText();
 
 		try {
 			JSONObject resp = Tools.envoyerRequete("api2/user/add?name="+login+"&password="+password);
@@ -34,9 +28,9 @@ public class InscriptionListener implements ActionListener {
 			//System.out.println("Statut : "+status);
 			
 			if (status == 500) {
-				conteneur.infoLoginLabel.setText("Erreur : login déjà utilisé");
+				Conteneur.infoLoginLabel.setText("Erreur : login déjà utilisé");
 			} else {
-				conteneur.infoLoginLabel.setText("Vous êtes inscrit !\nConnectez-vous maintenant");
+				Conteneur.infoLoginLabel.setText("Vous êtes inscrit !\nConnectez-vous maintenant");
 			}
 
 		} catch (JSONException ex) {

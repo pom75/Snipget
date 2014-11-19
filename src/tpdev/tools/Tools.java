@@ -51,6 +51,44 @@ public class Tools {
 			return null;
 		}
 	}
+	
+	public static String snippetToString (String snippetID) {
+		
+		JSONObject snippet;
+		String entity;
+		JSONObject entityObject;
+		String title, language, code, tags;
+		int userID, pour, contre;
+		
+		try {
+			snippet = envoyerRequete("api2/snippet/get?id="+snippetID);
+			entity = snippet.getString("entity");
+			entityObject = new JSONObject(entity);
+			
+			title = entityObject.getString("title");
+			language = entityObject.getString("language");
+			code = entityObject.getString("content");
+			userID = entityObject.getInt("id_user");
+			tags = entityObject.getString("tags");
+			
+			snippet = envoyerRequete("api2/vote/get?id_snippet="+snippetID);
+			entity = snippet.getString("entity");
+			entityObject = new JSONObject(entity);
+			
+			pour = entityObject.getInt("pour");
+			contre = entityObject.getInt("contre");
+			
+			return "Snippet "+snippetID+"\nTitre : "+title+"\nLanguage : "+language+
+					"\nPosté par "+userID+"\nTags : "+tags+
+					"\n"+pour+" votes pour, "+contre+" votes contre"+
+					"\nCode :\n"+code+"\n\n\n";
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return "Error";
+	}
 
 
 }

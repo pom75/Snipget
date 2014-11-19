@@ -36,57 +36,61 @@ public class PostAction implements IWorkbenchWindowActionDelegate {
 	private JPanel labels;
 	private JPanel fields;
 	private JPanel radioPanel;
-	private Conteneur conteneur;
 	
 	/**
 	 * The constructor.
 	 */
 	public PostAction() {
-		conteneur = new Conteneur();
 		
-		conteneur.postFrame = new JFrame();
-		conteneur.postFrame.setTitle("Post a Snippet");
+		Conteneur.postFrame = new JFrame();
+		Conteneur.postFrame.setTitle("Post a Snippet");
 		gui = new JPanel(new BorderLayout(3,2));
 		labelFields = new JPanel(new BorderLayout(2,2));
 		labels = new JPanel(new GridLayout(0,1,1,1));
 		fields = new JPanel(new GridLayout(0,1,1,1));
 		radioPanel = new JPanel(new GridLayout(1, 0, 1, 1));
 
-		conteneur.titreLabel = new JLabel("Titre :");
-		conteneur.titreField = new JTextField(10); 
-		labels.add(conteneur.titreLabel);
-		fields.add(conteneur.titreField);
+		Conteneur.titreLabel = new JLabel("Titre :");
+		Conteneur.titreField = new JTextField(10); 
+		labels.add(Conteneur.titreLabel);
+		fields.add(Conteneur.titreField);
 
-		conteneur.tagsLabelPost = new JLabel("Tags :");
-		conteneur.tagsField = new JTextField(10); 
-		labels.add(conteneur.tagsLabelPost);
-		fields.add(conteneur.tagsField);
+		Conteneur.tagsLabelPost = new JLabel("Tags :");
+		Conteneur.tagsFieldPost = new JTextField(10); 
+		labels.add(Conteneur.tagsLabelPost);
+		fields.add(Conteneur.tagsFieldPost);
 
-		conteneur.codeLabel = new JLabel("Code :");
-		conteneur.codeScroll = new JScrollPane(new JTextArea(5,30)); 
-		labels.add(conteneur.codeLabel);
-		fields.add(conteneur.codeScroll);
+		Conteneur.codeLabel = new JLabel("Code :");
+		Conteneur.codeArea = new JTextArea(5, 30);
+		Conteneur.codeScroll = new JScrollPane(Conteneur.codeArea, 
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+		labels.add(Conteneur.codeLabel);
+		fields.add(Conteneur.codeScroll);
 
-		conteneur.sendButton = new JButton("Send "); 
-		labels.add(conteneur.sendButton);
-		conteneur.sendButton.addActionListener(new SendListener(conteneur));
+		Conteneur.sendButton = new JButton("Send "); 
+		labels.add(Conteneur.sendButton);
+		Conteneur.sendButton.addActionListener(new SendListener());
 		
-
-		conteneur.javaRadio = new JRadioButton("Java");
-		conteneur.cRadio = new JRadioButton("C");
-		conteneur.groupeRadio = new ButtonGroup();
-		conteneur.groupeRadio.add(conteneur.javaRadio);
-		conteneur.groupeRadio.add(conteneur.cRadio);
-		radioPanel.add(conteneur.javaRadio);
-		radioPanel.add(conteneur.cRadio);
+		Conteneur.infoPostLabel = new JLabel();
+		fields.add(Conteneur.infoPostLabel);
+		
+		Conteneur.javaRadio = new JRadioButton("Java");
+		Conteneur.cRadio = new JRadioButton("C");
+		Conteneur.javaRadio.setSelected(true);
+		Conteneur.groupeLanguageRadio = new ButtonGroup();
+		Conteneur.groupeLanguageRadio.add(Conteneur.javaRadio);
+		Conteneur.groupeLanguageRadio.add(Conteneur.cRadio);
+		radioPanel.add(Conteneur.javaRadio);
+		radioPanel.add(Conteneur.cRadio);
 		fields.add(radioPanel);
 
 		labelFields.add(labels, BorderLayout.CENTER);
 		labelFields.add(fields, BorderLayout.EAST);
 
 		gui.add(labelFields, BorderLayout.NORTH);
-		conteneur.postFrame.add(gui);
-		conteneur.postFrame.pack();
+		Conteneur.postFrame.add(gui);
+		Conteneur.postFrame.pack();
 	}
 
 	/**
@@ -96,7 +100,7 @@ public class PostAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		conteneur.postFrame.setVisible(true);
+		Conteneur.postFrame.setVisible(true);
 	}
 
 	/**

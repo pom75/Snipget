@@ -31,30 +31,28 @@ public class GetAction implements IWorkbenchWindowActionDelegate {
 	private JPanel labelFields;
 	private JPanel labels;
 	private JPanel fields;
-	private Conteneur conteneur;
 	
 	/**
 	 * The constructor.
 	 */
 	public GetAction() {
-		conteneur = new Conteneur();
 		
-		conteneur.getFrame = new JFrame();
-		conteneur.getFrame.setTitle("Get a Snippet");
-		conteneur.infoGetLabel = new JLabel();
+		Conteneur.getFrame = new JFrame();
+		Conteneur.getFrame.setTitle("Get a Snippet");
+		Conteneur.infoGetLabel = new JLabel();
 		gui = new JPanel(new BorderLayout(3,2));
 		labelFields = new JPanel(new BorderLayout(2,2));
 		labels = new JPanel(new GridLayout(0,1,1,1));
 		fields = new JPanel(new GridLayout(0,1,1,1));
 
-		conteneur.tagsLabelGet = new JLabel("Tags :");
-		conteneur.tagsFields = new JTextField(20);
-		labels.add(conteneur.tagsLabelGet);
-		fields.add(conteneur.tagsFields);
+		Conteneur.tagsLabelGet = new JLabel("Tags :");
+		Conteneur.tagsFieldGet = new JTextField(20);
+		labels.add(Conteneur.tagsLabelGet);
+		fields.add(Conteneur.tagsFieldGet);
 
-		conteneur.rechercherButton = new JButton("Rechercher");
-		labels.add(conteneur.rechercherButton);
-		conteneur.rechercherButton.addActionListener(new RechercherListener(conteneur));
+		Conteneur.rechercherButton = new JButton("Rechercher");
+		labels.add(Conteneur.rechercherButton);
+		Conteneur.rechercherButton.addActionListener(new RechercherListener());
 		
 		// label bouche-trou
 		fields.add(new JLabel(""));
@@ -64,13 +62,13 @@ public class GetAction implements IWorkbenchWindowActionDelegate {
 
 		gui.add(labelFields, BorderLayout.NORTH);
 
-		conteneur.infoGetLabel.setText("<html>Pour chercher un Snippet , tapez dans le champ 'Tags' <br> "
+		Conteneur.infoGetLabel.setText("<html>Pour chercher un Snippet , tapez dans le champ 'Tags' <br> "
 				+ " Tapez vos tags séparés par une virgule. Exemple : tag1,tag2  </html>");
 
-		gui.add(conteneur.infoGetLabel, BorderLayout.SOUTH);
+		gui.add(Conteneur.infoGetLabel, BorderLayout.SOUTH);
 
-		conteneur.getFrame.add(gui);
-		conteneur.getFrame.pack();
+		Conteneur.getFrame.add(gui);
+		Conteneur.getFrame.pack();
 	}
 
 	/**
@@ -80,7 +78,7 @@ public class GetAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		conteneur.getFrame.setVisible(true);
+		Conteneur.getFrame.setVisible(true);
 	}
 
 	/**

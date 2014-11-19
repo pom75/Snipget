@@ -32,53 +32,50 @@ public class LoginAction implements IWorkbenchWindowActionDelegate {
 	private JPanel labelFields;
 	private JPanel labels; 
 	private JPanel fields;
-	private Conteneur conteneur;
-
 
 	/**
 	 * The constructor.
 	 */
 	public LoginAction() {
-		conteneur = new Conteneur();
 		
-		conteneur.loginFrame = new JFrame("Login");
+		Conteneur.loginFrame = new JFrame("Login");
 		gui = new JPanel(new BorderLayout(3,2));
 		labelFields = new JPanel(new BorderLayout(2,2));
 		labels = new JPanel(new GridLayout(0,1,1,1));
 		fields = new JPanel(new GridLayout(0,1,1,1));
 		
-		conteneur.infoLoginLabel = new JLabel();
-		conteneur.loginLabel = new JLabel("Login :");
-		conteneur.passwordLabel = new JLabel("Password :");
-		labels.add(conteneur.loginLabel);
-		labels.add(conteneur.passwordLabel);
+		Conteneur.infoLoginLabel = new JLabel();
+		Conteneur.loginLabel = new JLabel("Login :");
+		Conteneur.passwordLabel = new JLabel("Password :");
+		labels.add(Conteneur.loginLabel);
+		labels.add(Conteneur.passwordLabel);
 
-		conteneur.loginField = new JTextField(20);
-		conteneur.passwordField = new JTextField(10);
-		fields.add(conteneur.loginField);
-		fields.add(conteneur.passwordField);
+		Conteneur.loginField = new JTextField(20);
+		Conteneur.passwordField = new JTextField(10);
+		fields.add(Conteneur.loginField);
+		fields.add(Conteneur.passwordField);
 
-		conteneur.connexionButton = new JButton("Connexion");
-		conteneur.inscriptionButton = new JButton("Inscription");
-		labels.add(conteneur.connexionButton);
-		fields.add(conteneur.inscriptionButton);
+		Conteneur.connexionButton = new JButton("Connexion");
+		Conteneur.inscriptionButton = new JButton("Inscription");
+		labels.add(Conteneur.connexionButton);
+		fields.add(Conteneur.inscriptionButton);
 		
-		conteneur.connexionButton.addActionListener(new ConnexionListener(conteneur));
-		conteneur.inscriptionButton.addActionListener(new InscriptionListener(conteneur));
+		Conteneur.connexionButton.addActionListener(new ConnexionListener());
+		Conteneur.inscriptionButton.addActionListener(new InscriptionListener());
 
 		labelFields.add(labels, BorderLayout.CENTER);
 		labelFields.add(fields, BorderLayout.EAST);
 
 		gui.add(labelFields, BorderLayout.NORTH);
 
-		conteneur.infoLoginLabel.setText("<html> Complétez les champs ci-dessus. <br> "
+		Conteneur.infoLoginLabel.setText("<html> Complétez les champs ci-dessus. <br> "
 				+ "Si Vous avez déja un compte cliquez simplement sur Connexion <br> "
 				+ "Sinon cliquez sur Inscription </html>");
 
-		gui.add(conteneur.infoLoginLabel, BorderLayout.SOUTH);
+		gui.add(Conteneur.infoLoginLabel, BorderLayout.SOUTH);
 
-		conteneur.loginFrame.add(gui);
-		conteneur.loginFrame.pack();
+		Conteneur.loginFrame.add(gui);
+		Conteneur.loginFrame.pack();
 	}
 
 
@@ -89,7 +86,7 @@ public class LoginAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		conteneur.loginFrame.setVisible(true);
+		Conteneur.loginFrame.setVisible(true);
 	}
 
 	/**
