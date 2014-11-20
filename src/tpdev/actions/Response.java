@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import tpdev.listeners.VoteListener;
+import tpdev.tools.Conteneur;
 
 public class Response {
 

@@ -15,6 +15,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
 import tpdev.listeners.RechercherListener;
+import tpdev.tools.Conteneur;
 
 /**
  * Our sample action implements workbench action delegate.

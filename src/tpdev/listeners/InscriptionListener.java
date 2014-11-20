@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import tpdev.actions.Conteneur;
+import tpdev.tools.Conteneur;
 import tpdev.tools.Tools;
 
 
@@ -22,10 +22,8 @@ public class InscriptionListener implements ActionListener {
 
 		try {
 			JSONObject resp = Tools.envoyerRequete("api2/user/add?name="+login+"&password="+password);
-			//System.out.println("Réponse : "+resp);
 			
 			int status = resp.getInt("status");
-			//System.out.println("Statut : "+status);
 			
 			if (status == 500) {
 				Conteneur.infoLoginLabel.setText("Erreur : login déjà utilisé");

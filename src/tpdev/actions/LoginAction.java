@@ -16,6 +16,7 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
 import tpdev.listeners.ConnexionListener;
 import tpdev.listeners.InscriptionListener;
+import tpdev.tools.Conteneur;
 
 /**
  * Our sample action implements workbench action delegate.

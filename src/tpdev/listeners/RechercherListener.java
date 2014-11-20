@@ -10,8 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import tpdev.actions.Conteneur;
 import tpdev.actions.Response;
+import tpdev.tools.Conteneur;
 import tpdev.tools.Tools;
 
 public class RechercherListener implements ActionListener {
@@ -28,7 +28,6 @@ public class RechercherListener implements ActionListener {
 			for (int i = 0 ; i<length ; i++) {
 				resp[i] = Tools.envoyerRequete("api2/snippet/search?tag="+tags[i]);
 				entities[i] = resp[i].getString("entity");
-				//System.out.println("String entity : "+entities[i]);
 				
 				JSONArray array = new JSONArray(entities[i]);
 				for (int j = 0 ; j<array.length() ; j++) {

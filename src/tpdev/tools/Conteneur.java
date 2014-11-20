@@ -1,4 +1,4 @@
-package tpdev.actions;
+package tpdev.tools;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;

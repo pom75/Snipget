@@ -3,6 +3,8 @@ package tpdev.tools;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.json.JSONException;
@@ -31,25 +33,33 @@ public class Tools {
 	 * @return le Json répondu par le serveur 
 	 */
 	public static JSONObject envoyerRequete (String url) {
+		String str = null;
 		try {
 			
+			URL url1 = new URL(adresse+url);
+			URI uri = new URI(url1.getProtocol(), url1.getUserInfo(), url1.getHost(), url1.getPort(), url1.getPath(), url1.getQuery(), url1.getRef());
 			System.out.println("[Requête envoyée] : "+adresse+url);
-			
-			URL u = new URL(adresse+url);
+			URL u = uri.toURL();
 			BufferedReader in = new BufferedReader(new InputStreamReader(u.openStream()));
-			String str = readAll(in);
+			str = readAll(in);
 			System.out.println("[Réponse] : "+str);
 			in.close();
-			return new JSONObject(str); 
+			
 		} catch (IOException e) {
 			System.err.println("IOException while try to send url : "+url);
 			e.printStackTrace();
 			return null;
-		} catch (JSONException e) {
-			System.err.println("JSONException while try to send url : "+url);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
+		try {
+			return new JSONObject(str);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null; 
 	}
 	
 	public static String snippetToString (String snippetID) {
@@ -81,7 +91,7 @@ public class Tools {
 			return "Snippet "+snippetID+"\nTitre : "+title+"\nLanguage : "+language+
 					"\nPosté par "+userID+"\nTags : "+tags+
 					"\n"+pour+" votes pour, "+contre+" votes contre"+
-					"\nCode :\n"+code+"\n\n\n";
+					"\nCode :\n"+code.replace("<br>", "\n")+"\n\n\n";
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

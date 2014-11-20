@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import tpdev.actions.Conteneur;
+import tpdev.tools.Conteneur;
 import tpdev.tools.Tools;
 
 public class SendListener implements ActionListener {
@@ -20,7 +20,7 @@ public class SendListener implements ActionListener {
 		
 		String title = Conteneur.titreField.getText();
 		String tags = Conteneur.tagsFieldPost.getText();
-		String code = Conteneur.codeArea.getText();
+		String code = Conteneur.codeArea.getText().replace("\n", "<br>");
 		String language;
 		
 		if (Conteneur.javaRadio.isSelected()) language = "Java";
